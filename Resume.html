@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Resume with Terminal</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            color: white;
+            background-color: black;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        h1, h2, h3 {
+            color: #61dafb;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Summary Section */
+        .summary {
+            background-color: rgba(30, 30, 30, 0.9);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 90%;
+            margin: 20px auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Button Styles */
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .btn-container button {
+            background-color: #007acc;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .btn-container button:hover {
+            background-color: #005a9e;
+            transform: scale(1.05);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 800px;
+            flex: 1; /* Allow main content to grow */
+            overflow-y: auto; /* Enable scrolling if needed */
+        }
+
+        /* Section Styles */
+        .section {
+            background: rgba(30, 30, 30, 0.9);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            display: none; /* Initially hidden */
+        }
+
+        /* Terminal Popup */
+      .terminal-popup {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 66%;
+    align-self: center;
+    background-color: #333;
+    color: #0f0;
+   padding: 20px;
+   margin: 20px;
+    border-top: 2px solid #007acc;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+}
+
+        .terminal-popup pre {
+            white-space: pre-wrap;
+            font-family: monospace;
+            color: #0f0;
+            overflow-y: auto;
+            max-height: 300px; /* Limit height */
+        }
+
+        .terminal-input {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .terminal-input input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #555;
+            background-color: #222;
+            color: #0f0;
+            margin-right: 10px;
+        }
+
+        .terminal-input button {
+            padding: 8px 12px;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .close-terminal {
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        /* Command Guidelines Section */
+        .command-guidelines {
+            background: rgba(30, 30, 30, 0.9);
+            color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 90%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .summary, .btn-container, .main-content, .section, .terminal-popup, .command-guidelines {
+                max-width: 100%;
+                margin: 10px auto;
+                padding: 15px;
+            }
+
+            h1, h2, h3 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="btn-container">
+    <button id="openTerminal">Open Terminal</button>
+    <button id="downloadPDF">Download PDF</button>
+</div>
+
+<div class="main-content">
+ <div class="summary">
+    <h1>Shreyash Pawar</h1>
+    <h2>Full Stack Developer</h2>
+    <p><strong>Expertise:</strong> Spring Boot | Angular | React | Node.js | MongoDB | MySQL | HTML | CSS | JavaScript</p>
+    <p>
+        As a passionate and dedicated full-stack developer, I specialize in crafting exceptional web experiences that bridge the gap between functionality and design. With a strong command of both front-end and back-end technologies, I thrive on turning complex challenges into elegant solutions, ensuring every project I touch meets the highest standards of performance and user satisfaction.
+    </p>
+    <p>
+        Let's build something amazing together!
+    </p>
+</div>
+
+
+    <div class="section" id="contactInfo">
+        <h2>Contact Information</h2>
+           <li><img src="https://img.icons8.com/color/48/phone.png" alt="Phone Icon">+91 9158009632</li>
+                <li><img src="https://img.icons8.com/color/48/email.png" alt="Email Icon">shreyashsunilpawardev@gmail.com</li>
+                <li><img src="https://img.icons8.com/color/48/linkedin.png" alt="LinkedIn Icon"><a href="https://linkedin.com/in/shreyash-pawar21" target="_blank">linkedin.com/in/shreyash-pawar21</a></li>
+            </ul>
+    </div>
+
+    <div id="educationSection" class="section">
+        <h2>Education</h2>
+        <ul class="education-list">
+                <li>
+                    <img src="https://img.icons8.com/color/48/graduation-cap.png" alt="Graduation Icon">
+                    <div>
+                        <div class="degree">B.Tech in Electrical Engineering</div>
+                        <div class="institution">G.H. Raisoni Institute of Engineering and Technology</div>
+                        <div class="board">Pune University, 2022</div>
+                    </div>
+                </li>
+                <li>
+                    <img src="https://img.icons8.com/color/48/graduation-cap.png" alt="Graduation Icon">
+                    <div>
+                        <div class="degree">Diploma in Electrical Engineering</div>
+                        <div class="institution">Government Polytechnic Dhule</div>
+                        <div class="board">MSBTE</div>
+                    </div>
+                </li>
+                <li>
+                    <img src="https://img.icons8.com/color/48/school.png" alt="School Icon">
+                    <div>
+                        <div class="degree">SCC</div>
+                        <div class="institution">Raje Chhatrapati Sambhaji Vidhyalaya, Dhule</div>
+                        <div class="board">Nashik Divisional Board</div>
+                    </div>
+                </li>
+            </ul>
+    </div>
+
+    <div id="skillsSection" class="section">
+        <h2>Skills</h2>
+           <h2><span>🚀</span>Front-End Skills</h2>
+            <ul class="skills-list">
+                <li><img src="https://img.icons8.com/color/48/angularjs.png" alt="Angular Icon">Angular Framework</li>
+                <li><img src="https://img.icons8.com/color/48/javascript.png" alt="JavaScript Icon">JavaScript</li>
+                <li><img src="https://img.icons8.com/color/48/redux.png" alt="NgRx Icon">State Management (NgRx)</li>
+                <li><img src="https://img.icons8.com/color/48/typescript.png" alt="TypeScript Icon">TypeScript</li>
+                <li><img src="https://img.icons8.com/color/48/html-5--v1.png" alt="HTML Icon">HTML</li>
+                <li><img src="https://img.icons8.com/color/48/css3.png" alt="CSS Icon">CSS</li>
+                <li><img src="https://img.icons8.com/color/48/responsive.png" alt="Responsive Design Icon">Responsive Design & Lazy Loading</li>
+            </ul>
+            <br>
+              <h2><span>💻</span>Back-End Skills</h2>
+            <ul class="skills-list">
+                <li><img src="https://img.icons8.com/color/48/java-coffee-cup-logo.png" alt="Java Icon">Java, Spring & Spring Boot</li>
+                <li><img src="https://img.icons8.com/color/48/api-settings.png" alt="API Icon">RESTful API Development</li>
+                <li><img src="https://img.icons8.com/color/48/authentication.png" alt="JWT Icon">JWT Authentication</li>
+                <li><img src="https://img.icons8.com/color/48/services.png" alt="Microservices Icon">Microservices Architecture</li>
+                <li><img src="https://img.icons8.com/color/48/mysql-logo.png" alt="MySQL Icon">MySQL</li>
+                <li><img src="https://img.icons8.com/color/48/hibernate.png" alt="Hibernate Icon">Hibernate</li>
+                <li><img src="https://img.icons8.com/color/48/lock.png" alt="Spring Security Icon">Spring Security</li>
+            </ul>
+            <br>
+              <h2><span>🌐</span>Other Skills</h2>
+            <ul class="skills-list">
+                <li><img src="https://img.icons8.com/color/48/git.png" alt="Git Icon">GIT (Version Control)</li>
+                <li><img src="https://img.icons8.com/color/48/docker.png" alt="Docker Icon">Docker</li>
+            </ul>
+    </div>
+
+    <!-- Command Guidelines Section -->
+    <div class="command-guidelines">
+        <h2>Command Guidelines</h2>
+        <p>Type the following commands in the terminal:</p>
+        <ul>
+            <li><strong>introduce yourself</strong> - Get an introduction.</li>
+            <li><strong>salary expectation</strong> - Know salary expectations.</li>
+            <li><strong>notice period</strong> - Get notice period information.</li>
+            <li><strong>show contact</strong> - Display contact information.</li>
+            <li><strong>show education</strong> - Display education details.</li>
+            <li><strong>show skills</strong> - Display skills section.</li>
+            <li><strong>remove skills</strong> - Hide skills section.</li>
+            <li><strong>remove education</strong> - Hide education section.</li>
+            <li><strong>remove contact</strong> - Hide contact information.</li>
+            <li><strong>download pdf</strong> - Get the link to download the PDF.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Terminal Popup -->
+<div id="terminalPopup" class="terminal-popup" style="display: none;">
+    <pre id="terminalOutput">Welcome to the terminal. Type commands to interact.</pre>
+    
+    <!-- Command Input Area -->
+    <div class="terminal-input">
+        <input type="text" id="terminalCommand" placeholder="Enter command here...">
+        <button onclick="submitCommand()">Submit</button>
+    </div>
+    
+    <button class="close-terminal" onclick="closeTerminal()">Close Terminal</button>
+</div>
+
+<script>
+    // Open Terminal Popup
+    document.getElementById("openTerminal").addEventListener("click", function() {
+        document.getElementById("terminalPopup").style.display = "flex";
+        document.getElementById("terminalCommand").focus(); // Focus on the input field
+    });
+
+    // Close Terminal Popup
+    function closeTerminal() {
+        document.getElementById("terminalPopup").style.display = "none";
+    }
+
+    // Command Parser Functionality
+    function submitCommand() {
+        const command = document.getElementById("terminalCommand").value.toLowerCase();
+        const terminalOutput = document.getElementById("terminalOutput");
+        const educationSection = document.getElementById("educationSection");
+        const skillsSection = document.getElementById("skillsSection");
+        const contactInfo = document.getElementById("contactInfo");
+
+if (command === "introduce yourself") {
+        terminalOutput.innerHTML += "<br>\nHi! I’m Shreyash Pawar, a full stack developer who works with both the front end and back end of websites and apps. I’m skilled in coding, managing databases, and solving tech problems. If it’s got code, I’m on it!";
+    } else if (command === "salary expectation") {
+        terminalOutput.innerHTML += "<br>\nI'm looking for a compensation package that aligns with my skills and experience—something that ensures I can continue enjoying my daily coffee and coding adventures!";
+    } else if (command === "notice period") {
+        terminalOutput.innerHTML += "\nMy notice period is generally within the range of 30 days, contingent upon the specifics of the new position and the transition needs of my current role.";
+    } else if (command === "show contact") {
+        terminalOutput.innerHTML += "<br>\nDisplaying contact information...";
+        contactInfo.style.display = "block";
+    } else if (command === "show education") {
+        terminalOutput.innerHTML += "<br>\nDisplaying education details...";
+        educationSection.style.display = "block";
+    } else if (command === "show skills") {
+        terminalOutput.innerHTML += "<br>\nDisplaying skills section...";
+        skillsSection.style.display = "block";
+    } else if (command === "remove contact") {
+        terminalOutput.innerHTML += "\nHiding contact information...";
+        contactInfo.style.display = "none";
+    } else if (command === "remove education") {
+        terminalOutput.innerHTML += "\nHiding education details...";
+        educationSection.style.display = "none";
+    } else if (command === "remove skills") {
+        terminalOutput.innerHTML += "\nHiding skills section...";
+        skillsSection.style.display = "none";
+    } else if (command === "download pdf") {
+        terminalOutput.innerHTML += "\nYou can download the PDF from this link: ";
+        terminalOutput.innerHTML += '<a href="https://drive.google.com/file/d/1ubramPoq0TYz8pRHYuETwcXkmwwR542y/view?usp=sharing" target="_blank" style="color: #61dafb;">Download Resume PDF</a>';
+    } else {
+        terminalOutput.innerHTML += "\nUnknown command. Please use valid commands.";
+    }
+
+        // Clear the input
+        document.getElementById("terminalCommand").value = '';
+    }
+
+    // Download PDF Functionality (Example)
+ document.getElementById("downloadPDF").addEventListener("click", function() {
+    const resumeContent = document.querySelector('.main-content').innerHTML;
+    const pdfWindow = window.open('', '_blank');
+
+    pdfWindow.document.write(`
+        <html>
+            <head>
+                <title>Resume</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        padding: 20px;
+                        color: #333;
+                        background-color: #f4f4f4;
+                        line-height: 1.6;
+                    }
+                    h1 {
+                        color: #007acc;
+                        border-bottom: 2px solid #007acc;
+                        padding-bottom: 10px;
+                    }
+                    h2 {
+                        color: #00509e;
+                    }
+                    .section {
+                        margin-bottom: 20px;
+                        padding: 15px;
+                        background: white;
+                        border-radius: 5px;
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                    }
+                    ul {
+                        list-style-type: disc;
+                        padding-left: 20px;
+                    }
+                    li {
+                        margin-bottom: 10px;
+                    }
+                </style>
+            </head>
+            <body>
+
+                <div class="section">
+                    ${resumeContent}
+                </div>
+            </body>
+        </html>
+    `);
+    
+    pdfWindow.document.close();
+    pdfWindow.print();
+});
+
+</script>
+
+</body>
+</html>
+
